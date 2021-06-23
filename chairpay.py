@@ -45,6 +45,17 @@ def make_chart(cur_df, alt_df):
     fig.add_trace(go.Bar(x=cur_df.index, y=cur_df["cumsum"], name="Current"))
     fig.add_trace(go.Bar(x=alt_df.index, y=alt_df["cumsum"], name="Alternative"))
     fig.update_layout(barmode="group", title="Future Cumulative Earnings")
+    fig.update_xaxes(title="Year")
+    fig.update_yaxes(title="Earnings")
+    fig.update_layout(yaxis_tickprefix="$", yaxis_tickformat=",.0f")
+    fig.add_annotation(
+        text="Hover over data / interactive plot",
+        xref="paper",
+        yref="paper",
+        x=0.7,
+        y=1.1,
+        showarrow=False,
+    )
 
     return fig
 
@@ -54,3 +65,7 @@ cur_df, alt_df = calculate(years, chair_years, base_salary, chair_stipend, NEW_S
 fig = make_chart(cur_df, alt_df)
 
 st.plotly_chart(fig)
+
+st.sidebar.markdown(
+    """--------\nMade by [Andrew J. Bonham](https://github.com/Paradoxdruid)"""
+)
